@@ -1,0 +1,16 @@
+img{
+    height: 200px;
+    width: 200px;
+
+}
+#news{
+    border: 1px solid black;
+    margin: auto;
+    margin: 10px;
+
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}

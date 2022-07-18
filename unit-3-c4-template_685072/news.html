@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detailed news</title>
+    <link rel="stylesheet" href="./styles.css/navSidebar.css">
+    <style>
+      img{
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Same navbar with same functionality  -->
+    <!-- Append detailed news in div with id "detailed_news"  -->
+    <header></header>
+    <div id="detailed_news"></div>
+    
+  </body>
+</html>
+<script src="./scripts/news.js" type="module"></script>
+<script>
+  let data = JSON.parse(localStorage.getItem("newsData"))
+let container = document.querySelector("#detailed_news")
+
+function append (data,container) {
+    container.innerHTML = null
+  
+      
+      let div = document.createElement("div")
+      div.setAttribute("id","news")
+      let image = document.createElement("img")
+      image.src = data[2]
+      let h3 = document.createElement("h3")
+      h3.innerHTML= data[1]
+      let desc = document.createElement("p")
+      desc.innerHTML = data[1]
+      
+      div.addEventListener("click",function(){
+        localStorage.setItem("newsData",JSON.stringify(newsData))
+        window.location.href = "news.html"
+      })
+
+      div.append(image,h3,desc)
+      container.append(div)
+    }
+  
+  append (data,container)
+</script>

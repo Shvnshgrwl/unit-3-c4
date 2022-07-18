@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News App</title>
+    <link rel="stylesheet" href="./styles.css/navSidebar.css">
+    <link rel="stylesheet" href="./styles.css/style.css">
+  </head>
+  <body>
+    <!-- Give Navbar with id "navbar"  -->
+    <!-- Navbar will have input with id search_input and a link to home page i.e. index.html -->
+    <!-- Sidebar will have id "sidebar"  -->
+    <!-- Give link to top headlines of countries in sidebar with id as their country codes 
+    india :- in
+    china :- ch
+    usa :- us
+    uk : uk
+    Newzeland :- nz -->
+
+    <!-- Append results inside div with id "results"  -->
+    <!-- News divs will have class "news"  -->
+    <header>
+
+    </header>
+    <div id="sidebar">
+
+    </div>
+    <div id="results">
+
+    </div>
+  </body>
+</html>
+<script src="./scripts/index.js" type="module"></script>
+<script>
+  let searchNews = async() =>{
+    try{
+      let res = await fetch (`https://masai-api.herokuapp.com/news/top-headlines?country=in`,{
+        headers:{
+          "Content-Type":"application/json",
+        }
+      })
+      let data = await res.json()
+      append(data.articles,document.querySelector('#results'))
+    }
+    catch(err){
+      console.log('err:',err)
+    }
+  }
+
+  searchNews()
+
+  let append = (data,container) =>{
+    container.innerHTML = null
+    data.forEach(({title,description,urlToImage})=>{
+      let newsData = []
+      let div = document.createElement("div")
+      div.setAttribute("id","news")
+      let image = document.createElement("img")
+      image.src = urlToImage
+      let h3 = document.createElement("h3")
+      h3.innerHTML= title
+      let desc = document.createElement("p")
+      desc.innerHTML = description
+      newsData.push(title,description,urlToImage)
+      div.addEventListener("click",function(){
+        localStorage.setItem("newsData",JSON.stringify(newsData))
+        window.location.href = "news.html"
+      })
+
+      div.append(image,h3,desc)
+      container.append(div)
+    })
+  }
+</script>
